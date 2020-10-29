@@ -9,7 +9,7 @@
 
 ### Setup:
 1. App <a href="https://scriptable.app/">Scriptable</a> herunterladen.
-2. Das Telekom Datennutzung Widget <a href"https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/telekom-data-usage.js">Skript</a> kopieren.
+2. Das Telekom Datennutzung Widget <a href="https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/telekom-data-usage.js">Skript</a> kopieren.
 
 <div>
 <img src = "https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/images/IMG_0547.png" width=240px>
