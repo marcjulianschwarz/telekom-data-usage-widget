@@ -22,6 +22,14 @@
 <img src = "https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/images/IMG_0545.jpeg" width=240px>
 </div>
 
+
+### Zukünftige Funktionen:
+- Option zur Darstellung des Verbrauchs als Diagramm
+- Benutzerdefinierte Hintergründe
+
+
 ### Bekannte Probleme:
 - Kein Darkmdoe Support für SFSymbols (WLAN Zeichen)
 - Widget funktioniert nur mit deutschen Telekom Verträgen
+
+
