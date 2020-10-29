@@ -14,7 +14,7 @@
 3. Scriptable App öffnen, neues Skript erstellen, zuvor kopiertes Skript einfügen.
 4. Auf den Homescreen wechseln, Scriptable Widget hinzufügen.
 5. In den Widget Einstellungen beim Punkt "Script" das eben erstellte Skript auswählen.
-(6.) Für die erste Verwendung des Widgets muss das WLAN deaktiviert sein und eine Verbindung mit dem Mobilfunknetz vorhanden sein.
+6. (Für die erste Verwendung des Widgets muss das WLAN deaktiviert sein und eine Verbindung mit dem Mobilfunknetz vorhanden sein.)
 
 <div>
 <img src = "https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/images/IMG_0547.png" width=240px>
