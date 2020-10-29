@@ -5,9 +5,11 @@
 - aktuell verfügbares Datenvolumen
 - bereits verbrauchtes Datenvolumen mit entsprechender Färbung (grün, gelb, orange, rot) je nachdem wie viel bereits verbraucht wurde (+ Prozentanzeige)
 - Datum, bis zu dem das aktuelle Datenvolumen noch verfügbar ist
+- automatisches Synchronisieren über iCloud (Datenvolumen auch an anderen iCloud Geräten ablesen)
 
 ### Setup:
-1. App Scriptable herunterladen.
+1. App <a href="https://scriptable.app/">Scriptable</a> herunterladen.
+2. Das Telekom Datennutzung Widget <a href"https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/telekom-data-usage.js">Skript</a> kopieren.
 
 <div>
 <img src = "https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/images/IMG_0547.png" width=240px>
