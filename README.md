@@ -16,6 +16,14 @@
 5. In den Widget Einstellungen beim Punkt "Script" das eben erstellte Skript auswählen.
 6. (Für die erste Verwendung des Widgets muss das WLAN deaktiviert sein und eine Verbindung mit dem Mobilfunknetz vorhanden sein.)
 
+### Fragen?
+Gerne beantworte ich alle Fragen und freue mich über Feedback, Anregungen und Ideen, die zur Verbesserung des Widgets beitragen können.
+Meine Kontaktmöglichkeiten:
+- Twitter <a href="https://twitter.com/marcjulian_DS">@marcjulian_DS</a>
+- Email/Website <a href="https://www.marc-julian.de/">marc-julian.de</a>
+
+### Bilder:
+
 <div>
 <img src = "https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/images/IMG_0547.png" width=240px>
 <img src = "https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/images/IMG_0544.jpeg" width=240px>
