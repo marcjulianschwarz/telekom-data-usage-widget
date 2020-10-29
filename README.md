@@ -1,7 +1,6 @@
 # Telekom Datennutzung Widget (iOS 14) 
 
 ### Funktionen:
-- Name des Telekom Vertrags
 - aktuell verfügbares Datenvolumen
 - bereits verbrauchtes Datenvolumen mit entsprechender Färbung (grün, gelb, orange, rot) je nachdem wie viel bereits verbraucht wurde (+ Prozentanzeige)
 - Datum, bis zu dem das aktuelle Datenvolumen noch verfügbar ist
