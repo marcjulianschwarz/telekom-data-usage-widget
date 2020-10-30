@@ -5,7 +5,9 @@
 - bereits verbrauchtes Datenvolumen mit entsprechender Färbung (grün, gelb, orange, rot) je nachdem wie viel bereits verbraucht wurde (+ Prozentanzeige)
 - Datum, bis zu dem das aktuelle Datenvolumen noch verfügbar ist
 - Widget öffnet bei Berührung automatisch die Telekom Website um noch mehr Infos zur Datennutzung anzuzeigen
+- angepasstest Design für medium und kleine Widgets
 - automatisches Synchronisieren über iCloud (Datenvolumen auch an anderen iCloud Geräten ablesbar)
+- (auch lokale Speicherung der Daten möglich)
 
 ### Setup:
 1. App <a href="https://scriptable.app/">Scriptable</a> herunterladen.
