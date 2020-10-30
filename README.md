@@ -34,6 +34,9 @@ Meine Kontaktmöglichkeiten:
 - Option zur Darstellung des Verbrauchs als Diagramm
 - Benutzerdefinierte Hintergründe
 
+#### Updates:
+30.10.2020: Lokale Speicherung möglich und verbessertes Design des Medium-Size Widgets.
+
 
 ### Bekannte Probleme:
 - Kein Darkmdoe Support für SFSymbols (WLAN Zeichen)
