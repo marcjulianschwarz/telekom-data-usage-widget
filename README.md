@@ -29,6 +29,7 @@ Meine Kontaktmöglichkeiten:
 <img src = "https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/images/IMG_0547.png" width=240px>
 <img src = "https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/images/IMG_0544.jpeg" width=240px>
 <img src = "https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/images/IMG_0545.jpeg" width=240px>
+<img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/E10F0CF9-83A4-4628-8949-442AC0281524.jpeg" width=240px>  
 </div>
 
 
