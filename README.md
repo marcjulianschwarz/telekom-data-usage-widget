@@ -17,6 +17,11 @@
 5. In den Widget Einstellungen beim Punkt "Script" das eben erstellte Skript auswählen.
 6. (Für die erste Verwendung des Widgets muss das WLAN **deaktiviert** sein und eine Verbindung mit dem Mobilfunknetz vorhanden sein.)
 
+Lokale Speicherung:
+Damit die Daten nur lokal gespeichert werden, muss bei Schritt 5 im Feld "Parameter" der Bergriff "local" angegeben werden.
+Nun sollte das Widget auch ohne iCloud Anmeldung funktionieren.
+
+
 ### Fragen?
 Gerne beantworte ich alle Fragen und freue mich über Feedback, Anregungen und Ideen, die zur Verbesserung des Widgets beitragen können.
 Meine Kontaktmöglichkeiten:
