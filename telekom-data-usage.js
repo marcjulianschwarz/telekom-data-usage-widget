@@ -19,16 +19,22 @@ let df = new DateFormatter();
 df.useShortDateStyle();
 
 let wifi = false;
+let spacer_size = 4
+
 
 // FONTS USED BY THE WIDGET
 let thin_font = Font.regularRoundedSystemFont(13);
 let small_font = Font.regularRoundedSystemFont(11);
 let bold_font = Font.heavyRoundedSystemFont(13);
+let title_font = Font.heavyRoundedSystemFont(11)
 
 if(widgetSize == "medium"){
   thin_font = Font.regularRoundedSystemFont(19);
   small_font = Font.regularRoundedSystemFont(17);
   bold_font = Font.heavyRoundedSystemFont(19);
+  title_font = Font.heavyRoundedSystemFont(19)
+
+  spacer_size = null
 }
 
 // SPECIAL COLORS
@@ -137,17 +143,24 @@ async function createWidget(data){
     }
   }
   
-  widget.addSpacer();
-  var available_txt = widget.addText(data.remainingVolume + ' von ' + data.inititalVolume + ' noch verfügbar.');
-  widget.addSpacer();
+  widget.addSpacer(spacer_size);
+  if (widgetSize == "medium"){
+     available_txt = widget.addText(data.remainingVolume + ' von ' + data.inititalVolume + ' noch verfügbar.');
+    
+  }else{
+    available_txt = widget.addText(data.remainingVolume + ' von ' + data.inititalVolume + '\nnoch verfügbar.');
+  }
+  
+  widget.addSpacer(spacer_size);
   var used_txt = widget.addText(data.usedVolume + ' (' + data.usedPercentage + '%) verbraucht.');
-  widget.addSpacer();
+  
+  widget.addSpacer(spacer_size);
   
   var footer = widget.addText('Bis: ' + df.string(data.validUntil).toLocaleString() + ' (' + getDaysHours(data) + ')');
   
   
   // ASSIGNING FONTS
-  title.font = bold_font;
+  title.font = title_font;
   available_txt.font = thin_font;
   used_txt.font = bold_font;
   footer.font = small_font;
