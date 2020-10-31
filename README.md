@@ -3,7 +3,7 @@
 ### Funktionen:
 - aktuell verfügbares Datenvolumen
 - bereits verbrauchtes Datenvolumen mit entsprechender Färbung (grün, gelb, orange, rot) je nachdem wie viel bereits verbraucht wurde (+ Prozentanzeige)
-- Datum, bis zu dem das aktuelle Datenvolumen noch verfügbar ist
+- Datum, bis zu dem das aktuelle Datenvolumen noch verfügbar ist (+ Anzahl Tage und Studen bis zu diesem Datum)
 - Widget öffnet bei Berührung automatisch die Telekom Website um noch mehr Infos zur Datennutzung anzuzeigen
 - angepasstest Design für medium und kleine Widgets
 - automatisches Synchronisieren über iCloud (Datenvolumen auch an anderen iCloud Geräten ablesbar)
@@ -39,15 +39,19 @@ Meine Kontaktmöglichkeiten:
 
 
 ### Zukünftige Funktionen:
-- Option zur Darstellung des Verbrauchs als Diagramm
+- Option zur Darstellung des Verbrauchs als Diagramm (in medium und großem Widget)
 - Benutzerdefinierte Hintergründe
 
 #### Updates:
-30.10.2020: Lokale Speicherung möglich und verbessertes Design des Medium-Size Widgets.
+30.10.2020: 
+- lokale Speicherung möglich
+- verbessertes Design des Medium-Size Widgets.
 
+31.10.2020: 
+- Schriftgröße in kleinem Widget wurde vergrößert.
+- Tage und Stunden bis zu dem Datum, an dem das aktuelle Datenvolumen noch verfügbar ist.
 
 ### Bekannte Probleme:
-- Kein Darkmdoe Support für SFSymbols (WLAN Zeichen)
+- Eingeschränkter Darkmdoe Support für SFSymbols (WLAN Zeichen)
 - Widget funktioniert nur mit deutschen Telekom Verträgen
-
 
