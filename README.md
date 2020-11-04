@@ -54,4 +54,5 @@ Meine Kontaktmöglichkeiten:
 ### Bekannte Probleme:
 - Eingeschränkter Darkmdoe Support für SFSymbols (WLAN Zeichen)
 - Widget funktioniert nur mit deutschen Telekom Verträgen
+- Widget funktioniert nicht mit Telekom unlimited Verträgen (Telekom API liefert keine Daten)
 
