@@ -51,6 +51,11 @@ Meine Kontaktmöglichkeiten:
 - Schriftgröße in kleinem Widget wurde vergrößert.
 - Tage und Stunden bis zu dem Datum, an dem das aktuelle Datenvolumen noch verfügbar ist.
 
+06.11.2020:
+- Fehler bezüglich lokaler Speicherung wurden behoben.
+- Es wird jetzt immer das richtige Datum angezeigt.
+- Telekom-module ab sofort verfügbar.
+
 ### Bekannte Probleme:
 - Eingeschränkter Darkmdoe Support für SFSymbols (WLAN Zeichen)
 - Widget funktioniert nur mit deutschen Telekom Verträgen
