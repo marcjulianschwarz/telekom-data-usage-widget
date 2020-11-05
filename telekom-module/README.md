@@ -1,1 +1,27 @@
-### Test
+# Telekom Modul
+
+### Funktionen:
+- bereits formatierte Daten von der Telekom API abrufen
+- automatische Zwischenspeicherung der Daten (Zugriff auch ohne Verbindung zum mobilen Netz)
+- Synchronisierung über iCloud
+
+### Anleitung (Scriptable):
+1. Skript "telekom-module.js" kopieren und in Scriptable App einfügen
+2. Skript von "Untitled Script" zu "telekom-module.js" umbennen
+3. In der eigenen Anwendung das Modul mit `const telekom = importModule("telekom-module.js")` importieren
+4. An geeigneter Stelle können die Daten mit `let data = await telekom.getData()` abgerufen werden
+
+Die Daten liegen in folgender Form vor:
+
+`telekom.name` -> Name des Vertrags / "Ihr Datenvolumen", wenn kein Vertrag Name geliefert wird.<br>
+`telekom.usedVolume` -> Verbrauchtes Datenvolumen in GB.<br>
+`telekom.initialVolume` -> Volles Datenvolumen des Vertrags.<br>
+`telekom.remainingVolume` -> Übriges Datenvolumen.<br>
+`telekom.usedPercentage` -> Verbrauchtes Datenvolumen in Prozent.<br>
+`telekom.validUntil` -> Datum, bis zu dem das aktuelle Datenvolumen gültig ist.<br>
+
+Alle Daten außer "usedPercentage" (Int) sind String Objekte.
+
+### Bekannte Probleme:
+- Funktioniert nur mit deutschen Telekom Verträgen
+- Unlimited Verträge funktionieren nicht
