@@ -22,6 +22,12 @@ Die Daten liegen in folgender Form vor:
 
 Alle Daten außer "usedPercentage" (Int) sind String Objekte.
 
+### Fragen?
+Gerne beantworte ich alle Fragen und freue mich über Feedback, Anregungen und Ideen, die zur Verbesserung des Widgets beitragen können.
+Meine Kontaktmöglichkeiten:
+- Twitter <a href="https://twitter.com/marcjulian_DS">@marcjulian_DS</a>
+- Email/Website <a href="https://www.marc-julian.de/">marc-julian.de</a>
+
 ### Bekannte Probleme:
 - Funktioniert nur mit deutschen Telekom Verträgen
 - Unlimited Verträge funktionieren nicht
