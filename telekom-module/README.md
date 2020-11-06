@@ -22,6 +22,8 @@ Die Daten liegen in folgender Form vor:
 
 Alle Daten außer "usedPercentage" (Int) sind String Objekte.
 
+In der Datei <a href="https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/telekom-module/example-widget.js">Example Widget</a> befindet sich eine mögliche Implementierung des Moduls in ein Widget.
+
 ### Fragen?
 Gerne beantworte ich alle Fragen und freue mich über Feedback, Anregungen und Ideen, die zur Verbesserung des Widgets beitragen können.
 Meine Kontaktmöglichkeiten:
