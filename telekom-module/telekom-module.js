@@ -80,11 +80,11 @@ module.exports.getData = async function getData(){
     saveData(data)
   }catch{
     wifi = true
-    console.log("Couldnt fetch data from API")
+    console.log("Couldnt fetch data from API. Maybe your Wifi is still turned on. Will try to read from file.")
   }
 
   if(!fm.fileExists(path)){
-    console.log("File doesnt exits. Looks like your first init.")
+    console.log("File doesnt exist. Looks like your first init. Disable Wifi and try again.")
   }else{
     data = await getFromFile()
     data = await processData(data)
