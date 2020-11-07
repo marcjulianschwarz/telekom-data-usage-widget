@@ -2,12 +2,25 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: purple; icon-glyph: magic;
 
+
+//########## SETUP ###########
+
+let IMAGE_BACKGROUND = true
+let IMAGE_NAME = "image.jpeg"
+
+let BACKGROUND_COLOR = "#333333"
+
+
+//########## END OF SETUP ##########
+
 const apiURL = "https://pass.telekom.de/api/service/generic/v1/status";
-let parameter = await args.widgetParameter;
+parameter = await args.widgetParameter;
 
 let fm = FileManager.iCloud();
 if(parameter == "local"){
   fm = FileManager.local();
+}else if(parameter == "icloud"){
+  fm = FileManager.iCloud();
 }
 
 let dir = fm.joinPath(fm.documentsDirectory(), "telekom-widget")
@@ -74,10 +87,12 @@ async function getFromApi(){
 async function saveData(data){
   data.savedDate = Date.now();
   fm.writeString(path, JSON.stringify(data));
+  console.log("Saved new data")
 }
 
 async function getFromFile(){
   data = await JSON.parse(fm.readString(path));
+  console.log("Fetching data from file was successful")
   return data
 }
 
@@ -155,6 +170,16 @@ async function createWidget(data){
     used_txt.textColor = Color.green();  
   }
   
+  
+  // BACKGROUND 
+  if(IMAGE_BACKGROUND){
+    image = await fm.readImage(fm.joinPath(dir, IMAGE_NAME))
+    widget.backgroundImage = image
+  }else{
+    widget.backgroundColor = new Color(BACKGROUND_COLOR)
+  }
+ 
+  
   return widget;
 }
 
@@ -170,7 +195,7 @@ try{
   saveData(data)
 }catch{
   wifi = true
-  console.log("Couldnt fetch data from API")
+  console.log("Couldnt fetch data from API. Wifi still on? Trying to read from file.")
 }
 
 if(!fm.fileExists(path)){
@@ -180,8 +205,8 @@ if(!fm.fileExists(path)){
 }else{
   data = await getFromFile()
   processedData = await processData(data)
-  console.log(processedData)
   widget = await createWidget(processedData)
+  widget.presentSmall()
   Script.setWidget(widget)
 }
 
