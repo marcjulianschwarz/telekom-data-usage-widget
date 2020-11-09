@@ -77,6 +77,10 @@ Meine Kontaktmöglichkeiten:
 - Es wird jetzt immer das richtige Datum angezeigt.
 - Telekom-module ab sofort verfügbar.
 
+07.11.2020
+- Hintergrundfarbe/bild können jetzt als SETUP eingestellt werden.
+- Falls ein Fehler auftritt wird dieser nun korrekt ausgegeben.
+
 ### Bekannte Probleme:
 - Eingeschränkter Darkmdoe Support für SFSymbols (WLAN Zeichen)
 - Widget funktioniert nur mit deutschen Telekom Verträgen
