@@ -82,7 +82,7 @@ Meine Kontaktmöglichkeiten:
 - Falls ein Fehler auftritt wird dieser nun korrekt ausgegeben.
 
 ### Bekannte Probleme:
-- Eingeschränkter Darkmdoe Support für SFSymbols (WLAN Zeichen)
+- Eingeschränkter Darkmode Support für SFSymbols (WLAN Zeichen)
 - Widget funktioniert nur mit deutschen Telekom Verträgen
 - Widget funktioniert nicht mit Telekom unlimited Verträgen (Telekom API liefert keine Daten)
 
