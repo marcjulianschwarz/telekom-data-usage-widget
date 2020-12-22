@@ -1,8 +1,8 @@
 # Telekom Datennutzung Widget (iOS 14)
 
-# !!!
+## !!!
 # Neue Versionen dieses Widgets gibt es ab sofort bei meinen <a href="https://github.com/marcjulianschwarz/scriptable-widgets">Scriptable Widgets</a>!
-# !!!
+## !!!
 
 ### Funktionen:
 - aktuell verfügbares Datenvolumen
