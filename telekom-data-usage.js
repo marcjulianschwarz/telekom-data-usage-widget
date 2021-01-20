@@ -5,16 +5,16 @@
 
 //########## SETUP ###########
 
-let IMAGE_BACKGROUND = true
-let IMAGE_NAME = "image.jpeg"
-
-let BACKGROUND_COLOR = "#333333"
-
+const BACKGROUND_COLOR = Color.dynamic(new Color("#ffffff"), new Color("#161618"));
+const TELEKOM_COLOR = new Color("#ea0a8e");
+const TEXT_COLOR = Color.dynamic(new Color("000000"), new Color("#ffffff"));
 
 //########## END OF SETUP ##########
 
 const apiURL = "https://pass.telekom.de/api/service/generic/v1/status";
-parameter = await args.widgetParameter;
+const imgURL = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/symbols/"
+let parameter = await args.widgetParameter;
+let widgetSize = config.widgetFamily;
 
 let fm = FileManager.iCloud();
 if(parameter == "local"){
@@ -23,35 +23,29 @@ if(parameter == "local"){
   fm = FileManager.iCloud();
 }
 
-let dir = fm.joinPath(fm.documentsDirectory(), "telekom-widget")
+let dir = fm.joinPath(fm.documentsDirectory(), "telekom-widget");
 let path = fm.joinPath(dir, "telekom-data.json");
-
 if(!fm.fileExists(dir)){
-  fm.createDirectory(dir)
+  fm.createDirectory(dir);
 }
 
-let wifi = false
-
+let wifi = false;
 let df = new DateFormatter();
 df.useShortDateStyle();
-
-let widgetSize = config.widgetFamily;
 
 // FONTS USED BY THE WIDGET
 let thin_font = Font.regularRoundedSystemFont(13);
 let small_font = Font.regularRoundedSystemFont(11);
 let bold_font = Font.heavyRoundedSystemFont(13);
-let title_font = Font.heavyRoundedSystemFont(11)
+let title_font = Font.heavyRoundedSystemFont(11);
 
 if(widgetSize == "medium"){
-  thin_font = Font.regularRoundedSystemFont(17);
-  small_font = Font.regularRoundedSystemFont(17);
-  bold_font = Font.heavyRoundedSystemFont(19);
-  title_font = Font.heavyRoundedSystemFont(19)
-
+  thin_font = Font.regularRoundedSystemFont(15);
+  small_font = Font.regularRoundedSystemFont(13);
+  bold_font = Font.heavyRoundedSystemFont(15);
+  title_font = Font.heavyRoundedSystemFont(17);
 }
 
-let telekom_color = new Color("#ea0a8e");
 
 // HELPER CLASS 
 class Telekom{
@@ -75,6 +69,7 @@ function getDaysHours(data){
   return days + "d " + Math.round(hours) + "h"
 }
 
+// Get all data and process
 async function getFromApi(){
     let request = new Request(apiURL);
     request.headers = {
@@ -84,20 +79,41 @@ async function getFromApi(){
     return data;
 }
 
+async function saveImages(){
+  console.log("loading and saving images")
+  var imgs = ["full", "half", "low", "empty", "almost"]
+  for(img of imgs){
+    let img_path = fm.joinPath(dir, img + ".png");
+    if(!fm.fileExists(img_path)){
+      console.log("Loading image: " + img + ".png")
+      let request = new Request(imgURL + img + ".png");
+      image = await request.loadImage();
+      fm.writeImage(img_path, image);
+    }
+  }
+}
+
+async function getImageFor(name){
+  let img_path = fm.joinPath(dir, name + ".png");
+  await fm.downloadFileFromiCloud(img_path);
+  img = await fm.readImage(img_path);
+  return img;
+}
+
 async function saveData(data){
   data.savedDate = Date.now();
   fm.writeString(path, JSON.stringify(data));
-  console.log("Saved new data")
+  console.log("Saved new data to file");
 }
 
 async function getFromFile(){
+  await fm.downloadFileFromiCloud(path);
   data = await JSON.parse(fm.readString(path));
-  console.log("Fetching data from file was successful")
-  return data
+  console.log("Fetching data from file was successful");
+  return data;
 }
 
 async function processData(data){
-  
   var name = data.passName;
   var usedVolumeNum = data.usedVolume / 1024 / 1024 / 1024;
   var initialVolumeNum = data.initialVolume / 1024 / 1024 / 1024;
@@ -118,47 +134,57 @@ async function processData(data){
   return telekom;
 }
 
+// Create all widgets
+function createFirstWidget(){
+  first = new ListWidget()
+  first.addText("Wlan für die erste Einrichtung ausschalten und Widget erneut erstellen.")
+  return first
+}
+
+async function createErrorWidget(err){
+  err_widget = new ListWidget();
+  err_widget.addText(err);
+  return err_widget;
+}
 
 
-async function createWidget(data){
+async function createSmallWidget(data){
 
   var widget = new ListWidget();
-  
   var header_stack = widget.addStack();
   var title = header_stack.addText(data.name);
-  title.textColor = telekom_color;
   
   // WIFI Symbol
   if (wifi){
     header_stack.addSpacer();
-    let symbol = SFSymbol.named('wifi.exclamationmark').image;
-    var symbol_image = header_stack.addImage(symbol);
-    symbol_image.imageSize = new Size(17, 17);
+    let symbol_image = SFSymbol.named('wifi.exclamationmark').image;
+    var symbol = header_stack.addImage(symbol_image);
+    symbol.imageSize = new Size(17, 17);
+    symbol.tintColor = TEXT_COLOR;
   }
   
   widget.addSpacer();
-  
-  if(widgetSize == "medium"){
-    available_txt = widget.addText(data.remainingVolume + ' von ' + data.initialVolume + ' noch verfügbar.');
-  }else{
-    available_txt = widget.addText(data.remainingVolume + ' von ' + data.initialVolume);
-  }
+
+  available_txt = widget.addText(data.remainingVolume + ' von ' + data.initialVolume);
   
   widget.addSpacer(5)
-  
-  var used_txt = widget.addText(data.usedVolume + ' (' + data.usedPercentage + '%) verbraucht.');
+
+  var used_txt = widget.addText('Benutzt: ' + data.usedVolume + ' (' + data.usedPercentage + '%).');
   
   widget.addSpacer();
   
   var footer = widget.addText('Bis: ' + df.string(data.validUntil).toLocaleString() + ' (' + getDaysHours(data) + ')');
   
-  
-  // ASSIGNING FONTS
+  // ASSIGNING FONTS and COLORS
   title.font = title_font;
   available_txt.font = thin_font;
   used_txt.font = bold_font;
   footer.font = small_font;
-  
+
+  title.textColor = TELEKOM_COLOR;
+  available_txt.textColor = TEXT_COLOR;
+  footer.textColor = TEXT_COLOR;
+
   // COLORING BASED ON DATA PERCENTAGE
   if(data.usedPercentage >= 75){
     used_txt.textColor = Color.red();
@@ -170,25 +196,85 @@ async function createWidget(data){
     used_txt.textColor = Color.green();  
   }
   
-  
-  // BACKGROUND 
-  if(IMAGE_BACKGROUND){
-    image = await fm.readImage(fm.joinPath(dir, IMAGE_NAME))
-    widget.backgroundImage = image
-  }else{
-    widget.backgroundColor = new Color(BACKGROUND_COLOR)
-  }
+  widget.backgroundColor = BACKGROUND_COLOR;
  
-  
   return widget;
 }
 
-function createFirstWidget(){
-  w = new ListWidget()
-  w.addText("Wlan für die erste Einrichtung ausschalten.")
-  return w
+
+async function createMediumWidget(data){
+
+  medium_widget = new ListWidget();
+
+  var header_stack = medium_widget.addStack();
+  var body_stack = medium_widget.addStack();
+
+  var info_stack = body_stack.addStack();
+  body_stack.addSpacer();
+  var visual_stack = body_stack.addStack();
+
+  // Stack Layout
+  info_stack.layoutVertically();
+  visual_stack.layoutVertically();
+
+  var title = header_stack.addText(data.name);
+
+  var available_txt = info_stack.addText(data.remainingVolume + ' von ' + data.initialVolume);
+  info_stack.addSpacer(5)
+  var used_txt = info_stack.addText('Benutzt: ' + data.usedVolume + ' (' + data.usedPercentage + '%).');
+  info_stack.addSpacer();
+  var footer = info_stack.addText('Bis: ' + df.string(data.validUntil).toLocaleString() + ' (' + getDaysHours(data) + ')');
+
+  img = await getImageFor("empty");
+
+  // COLORING BASED ON DATA PERCENTAGE
+  if(data.usedPercentage >= 75 && data.usedPercentage <= 95){
+    used_txt.textColor = Color.red();
+    img = await getImageFor("low");
+  }else if(data.usedPercentage >= 50 && data.usedPercentage < 75){
+    used_txt.textColor = Color.orange();
+    img = await getImageFor("half");
+  } else if(data.usedPercentage >= 25 && data.usedPercentage < 50){
+    used_txt.textColor = Color.yellow();
+    img = await getImageFor("almost");
+  }else if(data.usedPercentage < 25){
+    used_txt.textColor = Color.green();
+    img = await getImageFor("full");  
+  }else if(data.usedPercentage > 95){
+    used_txt.textColor = Color.red();
+  }
+
+  visual_stack.addSpacer()
+  visual_stack.addImage(img)
+
+  // ASSIGNING FONTS and COLORS
+  title.font = title_font;
+  available_txt.font = thin_font;
+  used_txt.font = bold_font;
+  footer.font = small_font;
+
+  title.textColor = TELEKOM_COLOR;
+  available_txt.textColor = TEXT_COLOR;
+  footer.textColor = TEXT_COLOR;
+
+  medium_widget.backgroundColor = BACKGROUND_COLOR;
+
+  return medium_widget;
 }
 
+async function createLargeWidget(data){
+
+  large_widget = new ListWidget();
+
+  large_widget.backgroundColor = BACKGROUND_COLOR;
+
+  return large_widget;
+}
+
+
+
+// Runtime:
+await saveImages()
 
 try{
   data = await getFromApi()
@@ -200,14 +286,28 @@ try{
 
 if(!fm.fileExists(path)){
   console.log("File doesnt exist. Looks like your first init.")
-  widget = await createFirstWidget()
-  Script.setWidget(widget)
+  first = await createFirstWidget()
+  Script.setWidget(first)
 }else{
   data = await getFromFile()
   processedData = await processData(data)
-  widget = await createWidget(processedData)
-  widget.presentSmall()
+
+  widget = createErrorWidget("Widget couldnt be created");
+
+  switch(widgetSize){
+    case "small": widget = await createSmallWidget(processedData);
+    break;
+    case "medium": widget = await createMediumWidget(processedData);
+    break;
+    case "large": widget = await createLargeWidget(processedData);
+    break;
+    default: widget = await createMediumWidget(processedData);
+  }
+  
+  widget.presentMedium()
+  
   Script.setWidget(widget)
 }
+
 
 Script.complete()
