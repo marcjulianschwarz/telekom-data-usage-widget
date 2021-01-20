@@ -21,24 +21,7 @@
 Damit die Daten nur lokal gespeichert werden, muss bei Schritt 5 im Feld "Parameter" der Bergriff "local" angegeben werden.
 Nun sollte das Widget auch ohne iCloud Anmeldung funktionieren.
 
-
 Für mehr Einstellungen muss das Skript geöffnet werden. In den ersten Zeilen befindet sich ein Abschnitt **"SETUP"**. Hier können weitere Veränderungen vorgenommen werden.
-
-**Hintergrund-Einstellungen:**<br>
-<img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/FEC3B5CC-60D1-43EC-B0BF-B871558EB802.jpeg" width=200px>
-<br>
-
-`IMAGE_BACKGROUND` kann die Werte `true` und `false` annehmen und bestimmt ob das Widget ein Bild als Hintergrund haben soll.<br>
-`IMAGE_NAME` ist der Name der Bilddatei, die unter dem Ordner "telekom-widget" gespeichert sein muss.<br>
-<br>
-Für den Effekt eines leicht transparenten Widgets muss das entsprechende Hintergrundbild erst mit dem Skript <a href="https://github.com/mzeryck/Widget-Blur">"Widget-Blur"</a> von <a href="https://github.com/mzeryck">@mzeryck</a> erstellt werden.
-Nach dem Befolgen der Anweisungen in dem Widget-Blur Skript muss das Bild nur noch im "telekom-widget" Ordner gespeichert werden und der Name der Datei im "SETUP" Bereich des Telekom-Widgets eingetragen werden.
-
-
-`BACKGROUND_COLOR` ist ein Hex-Farbcode, der die Farbe des Hintergrunds angibt.<br>
-<br>
-Wenn `IMAGE_BACKGROUND` auf `false` gesetzt wird, verwendet das Skript automatisch die Farbe, die unter `BACKGROUND_COLOR` angegeben ist.
-
 
 ### Telekom Modul
 Mithilfe des <a href="https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/telekom-module/telekom-module.js">Telekom Moduls</a> lassen sich die Telekom Daten ganz einfach auch in eigenen Anwendungen verwenden. Eine Anleitung dazu (für Scriptable) und mehr Informationen befinden sich <a href="https://github.com/marcjulianschwarz/telekom-data-usage-widget/tree/main/telekom-module">hier</a>. 
@@ -60,8 +43,7 @@ Meine Kontaktmöglichkeiten:
 
 
 ### Zukünftige Funktionen:
-- Option zur Darstellung des Verbrauchs als Diagramm (in medium und großem Widget)
-- Benutzerdefinierte Hintergründe
+- Angepasstes Large Widget
 
 #### Updates:
 30.10.2020: 
@@ -77,12 +59,15 @@ Meine Kontaktmöglichkeiten:
 - Es wird jetzt immer das richtige Datum angezeigt.
 - Telekom-module ab sofort verfügbar.
 
-07.11.2020
+07.11.2020:
 - Hintergrundfarbe/bild können jetzt als SETUP eingestellt werden.
 - Falls ein Fehler auftritt wird dieser nun korrekt ausgegeben.
 
+20.01.2021:
+- Darkmode funktioniert jetzt auch für SFSymbols
+- Angepasstes Medium Widget mit einer neuen Anzeige für den Verbrauch
+
 ### Bekannte Probleme:
-- Eingeschränkter Darkmode Support für SFSymbols (WLAN Zeichen)
 - Widget funktioniert nur mit deutschen Telekom Verträgen
 - Widget funktioniert nicht mit Telekom unlimited Verträgen (Telekom API liefert keine Daten)
 
