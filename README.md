@@ -25,7 +25,7 @@ Parameter können nach Schritt 5 angegeben werden.<br><br>
 - "**icloud**"  -> Daten werden über iCloud mit allen anderen Geräten synchronisiert
 - "**visual**"  -> kann beim kleinen Widget verwendet werden um den "Daten Becher" anzuzeigen.
 
-Es könenn auch mehrere Parameter durch ein Komma getrennt angegebn werden.
+Es könenn auch mehrere Parameter durch ein Komma getrennt angegeben werden.
 
 ### Mehr Einstellungen
 Für mehr Einstellungen muss das Skript geöffnet werden. In den ersten Zeilen befindet sich ein Abschnitt **"SETUP"**. Hier können weitere Veränderungen vorgenommen werden (zum Beispiel Hintergrundfarbe ändern).
