@@ -20,12 +20,14 @@
 
 ### Parameter
 Parameter können nach Schritt 5 angegeben werden.<br><br>
-
 - "**local**"   -> Daten werden lokal gespeichert
 - "**icloud**"  -> Daten werden über iCloud mit allen anderen Geräten synchronisiert
 - "**visual**"  -> kann beim kleinen Widget verwendet werden um den "Daten Becher" anzuzeigen.
 
-Es könenn auch mehrere Parameter durch ein Komma getrennt angegeben werden.
+Es könenn auch mehrere Parameter nacheinander angegeben werden.
+
+Bsp.:
+<img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/info_cloud_vis.jpg" width=200px>
 
 ### Mehr Einstellungen
 Für mehr Einstellungen muss das Skript geöffnet werden. In den ersten Zeilen befindet sich ein Abschnitt **"SETUP"**. Hier können weitere Veränderungen vorgenommen werden (zum Beispiel Hintergrundfarbe ändern).
