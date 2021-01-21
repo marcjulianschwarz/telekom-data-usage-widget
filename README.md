@@ -42,12 +42,12 @@ Meine Kontaktmöglichkeiten:
 ### Bilder:
 
 <div>
-  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/dark_med.jpg" width=240px>
-  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/light_med.jpg" width=240px>
-  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/light_small.jpg" width=240px>
-  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/dark_small.jpg" width=240px>  
-  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/dark_vis.jpg" width=240px>  
-  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/light_vis.jpg" width=240px> 
+  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/dark_med.jpg" width=500px>
+  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/light_med.jpg" width=500px>
+  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/light_small.jpg" width=500px>
+  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/dark_small.jpg" width=500px>  
+  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/dark_vis.jpg" width=500px>  
+  <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/light_vis.jpg" width=500px> 
 </div>
 
 
