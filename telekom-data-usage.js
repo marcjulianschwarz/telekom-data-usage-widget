@@ -15,10 +15,10 @@ const apiURL = "https://pass.telekom.de/api/service/generic/v1/status";
 const imgURL = "https://raw.githubusercontent.com/marcjulianschwarz/telekom-data-usage-widget/main/symbols/"
 
 let parameters = await args.widgetParameter;
-parameters = parameters.toLowerCase();
-
-if(parameters == null){
-  parameters = "icloud, visual"
+if(parameters != null){
+  parameters = parameters.toLowerCase();
+}else{
+  parameters = "icloud"
 }
 
 let widgetSize = config.widgetFamily;
