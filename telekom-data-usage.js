@@ -12,16 +12,23 @@ const TEXT_COLOR = Color.dynamic(new Color("000000"), new Color("#ffffff"));
 //########## END OF SETUP ##########
 
 const apiURL = "https://pass.telekom.de/api/service/generic/v1/status";
-const imgURL = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/symbols/"
-let parameter = await args.widgetParameter;
+const imgURL = "https://raw.githubusercontent.com/marcjulianschwarz/telekom-data-usage-widget/main/symbols/"
+
+let parameters = await args.widgetParameter;
+
+if(parameters == null){
+  parameters = "icloud, visual"
+}
+
 let widgetSize = config.widgetFamily;
 
 let fm = FileManager.iCloud();
-if(parameter == "local"){
+if(parameters.includes("local")){
   fm = FileManager.local();
-}else if(parameter == "icloud"){
+}else if(parameters.includes("icloud")){
   fm = FileManager.iCloud();
 }
+
 
 let dir = fm.joinPath(fm.documentsDirectory(), "telekom-widget");
 let path = fm.joinPath(dir, "telekom-data.json");
@@ -87,6 +94,7 @@ async function saveImages(){
     if(!fm.fileExists(img_path)){
       console.log("Loading image: " + img + ".png")
       let request = new Request(imgURL + img + ".png");
+      console.log(request);
       image = await request.loadImage();
       fm.writeImage(img_path, image);
     }
@@ -147,6 +155,29 @@ async function createErrorWidget(err){
   return err_widget;
 }
 
+async function createSmallVisualWidget(data){
+
+  var small_visual_widget = new ListWidget();
+  var img = await getImageFor("empty");
+
+  if(data.usedPercentage >= 75 && data.usedPercentage <= 95){
+    img = await getImageFor("low");
+  }else if(data.usedPercentage >= 50 && data.usedPercentage < 75){
+    img = await getImageFor("half");
+  } else if(data.usedPercentage >= 25 && data.usedPercentage < 50){
+    img = await getImageFor("almost");
+  }else if(data.usedPercentage < 25){
+    img = await getImageFor("full");  
+  }
+
+  var widget_image = small_visual_widget.addImage(img);
+  widget_image.centerAlignImage();
+
+  small_visual_widget.backgroundColor = BACKGROUND_COLOR;
+
+  return small_visual_widget;
+
+}
 
 async function createSmallWidget(data){
 
@@ -164,36 +195,31 @@ async function createSmallWidget(data){
   }
   
   widget.addSpacer();
-
-  available_txt = widget.addText(data.remainingVolume + ' von ' + data.initialVolume);
-  
-  widget.addSpacer(5)
-
   var used_txt = widget.addText('Benutzt: ' + data.usedVolume + ' (' + data.usedPercentage + '%).');
-  
+  widget.addSpacer(5)
+  var available_txt = widget.addText(data.remainingVolume + ' von ' + data.initialVolume);
   widget.addSpacer();
-  
   var footer = widget.addText('Bis: ' + df.string(data.validUntil).toLocaleString() + ' (' + getDaysHours(data) + ')');
   
   // ASSIGNING FONTS and COLORS
   title.font = title_font;
-  available_txt.font = thin_font;
-  used_txt.font = bold_font;
+  available_txt.font = bold_font;
+  used_txt.font = thin_font;
   footer.font = small_font;
 
   title.textColor = TELEKOM_COLOR;
-  available_txt.textColor = TEXT_COLOR;
+  used_txt.textColor = TEXT_COLOR;
   footer.textColor = TEXT_COLOR;
 
   // COLORING BASED ON DATA PERCENTAGE
   if(data.usedPercentage >= 75){
-    used_txt.textColor = Color.red();
+    available_txt.textColor = Color.red();
   }else if(data.usedPercentage >= 50 && data.usedPercentage < 75){
-    used_txt.textColor = Color.orange();
+    available_txt.textColor = Color.orange();
   } else if(data.usedPercentage >= 25 && data.usedPercentage < 50){
-    used_txt.textColor = Color.yellow();
+    available_txt.textColor = Color.yellow();
   }else{
-    used_txt.textColor = Color.green();  
+    available_txt.textColor = Color.green();  
   }
   
   widget.backgroundColor = BACKGROUND_COLOR;
@@ -201,12 +227,9 @@ async function createSmallWidget(data){
   return widget;
 }
 
-
 async function createMediumWidget(data){
 
   medium_widget = new ListWidget();
-
-  var header_stack = medium_widget.addStack();
   var body_stack = medium_widget.addStack();
 
   var info_stack = body_stack.addStack();
@@ -214,14 +237,16 @@ async function createMediumWidget(data){
   var visual_stack = body_stack.addStack();
 
   // Stack Layout
+  body_stack.layoutHorizontally();
   info_stack.layoutVertically();
   visual_stack.layoutVertically();
 
-  var title = header_stack.addText(data.name);
 
-  var available_txt = info_stack.addText(data.remainingVolume + ' von ' + data.initialVolume);
-  info_stack.addSpacer(5)
+  var title = info_stack.addText(data.name);
+  info_stack.addSpacer();
   var used_txt = info_stack.addText('Benutzt: ' + data.usedVolume + ' (' + data.usedPercentage + '%).');
+  info_stack.addSpacer()
+  var available_txt = info_stack.addText(data.remainingVolume + ' von ' + data.initialVolume);
   info_stack.addSpacer();
   var footer = info_stack.addText('Bis: ' + df.string(data.validUntil).toLocaleString() + ' (' + getDaysHours(data) + ')');
 
@@ -229,19 +254,19 @@ async function createMediumWidget(data){
 
   // COLORING BASED ON DATA PERCENTAGE
   if(data.usedPercentage >= 75 && data.usedPercentage <= 95){
-    used_txt.textColor = Color.red();
+    available_txt.textColor = Color.red();
     img = await getImageFor("low");
   }else if(data.usedPercentage >= 50 && data.usedPercentage < 75){
-    used_txt.textColor = Color.orange();
+    available_txt.textColor = Color.orange();
     img = await getImageFor("half");
   } else if(data.usedPercentage >= 25 && data.usedPercentage < 50){
-    used_txt.textColor = Color.yellow();
+    available_txt.textColor = Color.yellow();
     img = await getImageFor("almost");
   }else if(data.usedPercentage < 25){
-    used_txt.textColor = Color.green();
+    available_txt.textColor = Color.green();
     img = await getImageFor("full");  
   }else if(data.usedPercentage > 95){
-    used_txt.textColor = Color.red();
+    available_txt.textColor = Color.red();
   }
 
   visual_stack.addSpacer()
@@ -249,12 +274,12 @@ async function createMediumWidget(data){
 
   // ASSIGNING FONTS and COLORS
   title.font = title_font;
-  available_txt.font = thin_font;
-  used_txt.font = bold_font;
+  available_txt.font = bold_font;
+  used_txt.font = thin_font;
   footer.font = small_font;
 
   title.textColor = TELEKOM_COLOR;
-  available_txt.textColor = TEXT_COLOR;
+  used_txt.textColor = TEXT_COLOR;
   footer.textColor = TEXT_COLOR;
 
   medium_widget.backgroundColor = BACKGROUND_COLOR;
@@ -276,6 +301,7 @@ async function createLargeWidget(data){
 // Runtime:
 await saveImages()
 
+
 try{
   data = await getFromApi()
   saveData(data)
@@ -295,16 +321,21 @@ if(!fm.fileExists(path)){
   widget = createErrorWidget("Widget couldnt be created");
 
   switch(widgetSize){
-    case "small": widget = await createSmallWidget(processedData);
+    case "small": 
+      if(parameters.includes("visual")){
+        widget = await createSmallVisualWidget(processedData);
+      }else{
+        widget = await createSmallWidget(processedData);
+      }
     break;
     case "medium": widget = await createMediumWidget(processedData);
     break;
     case "large": widget = await createLargeWidget(processedData);
     break;
-    default: widget = await createMediumWidget(processedData);
+    default: widget = await createSmallWidget(processedData);
   }
   
-  widget.presentMedium()
+  widget.presentSmall()
   
   Script.setWidget(widget)
 }
