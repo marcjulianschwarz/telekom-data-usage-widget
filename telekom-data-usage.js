@@ -15,6 +15,7 @@ const apiURL = "https://pass.telekom.de/api/service/generic/v1/status";
 const imgURL = "https://raw.githubusercontent.com/marcjulianschwarz/telekom-data-usage-widget/main/symbols/"
 
 let parameters = await args.widgetParameter;
+parameters = parameters.toLowerCase();
 
 if(parameters == null){
   parameters = "icloud, visual"
@@ -195,8 +196,8 @@ async function createSmallWidget(data){
   }
   
   widget.addSpacer();
-  var used_txt = widget.addText('Benutzt: ' + data.usedVolume + ' (' + data.usedPercentage + '%).');
-  widget.addSpacer(5)
+  var used_txt = widget.addText('Benutzt: \n' + data.usedVolume + ' (' + data.usedPercentage + '%)');
+  widget.addSpacer()
   var available_txt = widget.addText(data.remainingVolume + ' von ' + data.initialVolume);
   widget.addSpacer();
   var footer = widget.addText('Bis: ' + df.string(data.validUntil).toLocaleString() + ' (' + getDaysHours(data) + ')');
@@ -288,8 +289,21 @@ async function createMediumWidget(data){
 }
 
 async function createLargeWidget(data){
+  var large_widget = new ListWidget();
+  var img = await getImageFor("empty");
 
-  large_widget = new ListWidget();
+  if(data.usedPercentage >= 75 && data.usedPercentage <= 95){
+    img = await getImageFor("low");
+  }else if(data.usedPercentage >= 50 && data.usedPercentage < 75){
+    img = await getImageFor("half");
+  } else if(data.usedPercentage >= 25 && data.usedPercentage < 50){
+    img = await getImageFor("almost");
+  }else if(data.usedPercentage < 25){
+    img = await getImageFor("full");  
+  }
+
+  var widget_image = large_widget.addImage(img);
+  widget_image.centerAlignImage();
 
   large_widget.backgroundColor = BACKGROUND_COLOR;
 
@@ -297,10 +311,8 @@ async function createLargeWidget(data){
 }
 
 
-
 // Runtime:
 await saveImages()
-
 
 try{
   data = await getFromApi()
