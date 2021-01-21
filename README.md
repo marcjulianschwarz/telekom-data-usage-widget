@@ -26,7 +26,7 @@ Parameter können nach Schritt 5 angegeben werden.<br><br>
 
 Es könenn auch mehrere Parameter nacheinander angegeben werden.
 
-Bsp.:
+Beispiel: <br><br>
 <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/info_cloud_vis.jpg" width=200px>
 
 ### Mehr Einstellungen
