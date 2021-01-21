@@ -18,11 +18,16 @@
 5. In den Widget Einstellungen beim Punkt "Script" das eben erstellte Skript auswählen.
 6. (Für die erste Verwendung des Widgets muss das WLAN **deaktiviert** sein und eine Verbindung mit dem Mobilfunknetz vorhanden sein.)
 
-**Für lokale Speicherung:**
-Damit die Daten nur lokal gespeichert werden, muss bei Schritt 5 im Feld "Parameter" der Bergriff "local" angegeben werden.
-Nun sollte das Widget auch ohne iCloud Anmeldung funktionieren.
+### Parameter
+Parameter können nach Schritt 5 angegeben werden.<br><br>
 
+- "**local**"   -> Daten werden lokal gespeichert
+- "**icloud**"  -> Daten werden über iCloud mit allen anderen Geräten synchronisiert
+- "**visual**"  -> kann beim kleinen Widget verwendet werden um den "Daten Becher" anzuzeigen.
 
+Es könenn auch mehrere Parameter durch ein Komma getrennt angegebn werden.
+
+### Mehr Einstellungen
 Für mehr Einstellungen muss das Skript geöffnet werden. In den ersten Zeilen befindet sich ein Abschnitt **"SETUP"**. Hier können weitere Veränderungen vorgenommen werden (zum Beispiel Hintergrundfarbe ändern).
 
 ### Telekom Modul
