@@ -43,6 +43,7 @@ Meine Kontaktmöglichkeiten:
 
 Wenn dir das Widget gefällt kannst du mich gerne hier unterstützen:
 <br>
+<br>
 <a href="https://www.buymeacoffee.com/marcjulian" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 ### Bilder:
@@ -56,6 +57,8 @@ Wenn dir das Widget gefällt kannst du mich gerne hier unterstützen:
   <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/light_vis.jpg" width=500px> 
 </div>
 
+### Ein großes Dankeschön geht auch an
+<a href="https://www.olli-graphics.de">Jan Oliver Schwaz</a> für die Bereitstellung der Telekom Datenbecher Grafiken. Ohne ihn wäre das neue Design nicht möglich gewesen.
 
 ### Zukünftige Funktionen:
 - Angepasstes Large Widget
