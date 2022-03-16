@@ -1,6 +1,6 @@
 # Telekom Datennutzung Widget (iOS 14)
 
-### Funktionen:
+## Funktionen:
 - aktuell verfügbares Datenvolumen
 - bereits verbrauchtes Datenvolumen mit entsprechender Färbung (grün, gelb, orange, rot) je nachdem wie viel bereits verbraucht wurde (+ Prozentanzeige)
 - Datum, bis zu dem das aktuelle Datenvolumen noch verfügbar ist (+ Anzahl Tage und Studen bis zu diesem Datum)
@@ -10,7 +10,7 @@
 - automatisches Synchronisieren über iCloud (Datenvolumen auch an anderen iCloud Geräten ablesbar)
 - (auch lokale Speicherung der Daten möglich)
 
-### Setup:
+## Setup:
 1. App <a href="https://scriptable.app/">Scriptable</a> herunterladen.
 2. Das Telekom Datennutzung Widget <a href="https://github.com/marcjulianschwarz/tmobile-data-usage-widget/blob/main/telekom-data-usage.js">Skript</a> kopieren.
 3. Scriptable App öffnen, neues Skript erstellen, zuvor kopiertes Skript einfügen.
@@ -18,7 +18,7 @@
 5. In den Widget Einstellungen beim Punkt "Script" das eben erstellte Skript auswählen.
 6. (Für die erste Verwendung des Widgets muss das WLAN **deaktiviert** sein und eine Verbindung mit dem Mobilfunknetz vorhanden sein.)
 
-### Parameter
+## Parameter
 Parameter können nach Schritt 5 angegeben werden.<br><br>
 - "**local**"   -> Daten werden lokal gespeichert
 - "**icloud**"  -> Daten werden über iCloud mit allen anderen Geräten synchronisiert
@@ -29,25 +29,19 @@ Es könenn auch mehrere Parameter nacheinander angegeben werden.
 Beispiel: <br><br>
 <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/info_cloud_vis.jpg" width=200px>
 
-### Mehr Einstellungen
+## Mehr Einstellungen
 Für mehr Einstellungen muss das Skript geöffnet werden. In den ersten Zeilen befindet sich ein Abschnitt **"SETUP"**. Hier können weitere Veränderungen vorgenommen werden (zum Beispiel Hintergrundfarbe ändern).
 
-### Telekom Modul
+## Telekom Modul
 Mithilfe des <a href="https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/telekom-module/telekom-module.js">Telekom Moduls</a> lassen sich die Telekom Daten ganz einfach auch in eigenen Anwendungen verwenden. Eine Anleitung dazu (für Scriptable) und mehr Informationen befinden sich <a href="https://github.com/marcjulianschwarz/telekom-data-usage-widget/tree/main/telekom-module">hier</a>. 
 
-### Fragen?
+## Fragen?
 Gerne beantworte ich alle Fragen und freue mich über Feedback, Anregungen und Ideen, die zur Verbesserung des Widgets beitragen können.
 Meine Kontaktmöglichkeiten:
 - Twitter <a href="https://twitter.com/marcjulian_DS">@marcjulian_DS</a>
 - Email/Website <a href="https://www.marc-julian.de/">marc-julian.de</a>
 
-Wenn dir das Widget gefällt kannst du mich gerne hier unterstützen:
-<br>
-<br>
-<a href="https://www.buymeacoffee.com/marcjulian" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
-
-### Bilder:
-
+## Bilder:
 <div>
   <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/dark_med.jpg" width=500px>
   <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/light_med.jpg" width=500px>
@@ -57,13 +51,13 @@ Wenn dir das Widget gefällt kannst du mich gerne hier unterstützen:
   <img src = "https://github.com/marcjulianschwarz/telekom-data-usage-widget/blob/main/images/cropped/light_vis.jpg" width=500px> 
 </div>
 
-### Ein großes Dankeschön geht auch an
+## Ein großes Dankeschön geht auch an
 <a href="https://www.olli-graphics.de">Jan Oliver Schwaz</a> für die Bereitstellung der Telekom Datenbecher Grafiken. Ohne ihn wäre das neue Design nicht möglich gewesen.
 
-### Zukünftige Funktionen:
+## Zukünftige Funktionen:
 - Angepasstes Large Widget
 
-#### Updates:
+### Updates:
 30.10.2020: 
 - lokale Speicherung möglich
 - verbessertes Design des Medium-Size Widgets.
@@ -85,7 +79,7 @@ Wenn dir das Widget gefällt kannst du mich gerne hier unterstützen:
 - Darkmode funktioniert jetzt auch für SFSymbols
 - Angepasstes Medium Widget mit einer neuen Anzeige für den Verbrauch
 
-### Bekannte Probleme:
+## Bekannte Probleme:
 - Widget funktioniert nur mit deutschen Telekom Verträgen
 - Widget funktioniert nicht mit Telekom unlimited Verträgen (Telekom API liefert keine Daten)
 
