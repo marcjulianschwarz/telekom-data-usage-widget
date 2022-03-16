@@ -1,3 +1,8 @@
+<p align="center">
+  <img width="500" alt="telekom_transparent" src="https://user-images.githubusercontent.com/67844154/158656322-f7047b1b-7eff-4bd0-a68b-505c0e64bf3c.png">
+ </p>
+
+
 # Telekom Datennutzung Widget (iOS 14)
 
 ## Funktionen:
@@ -52,7 +57,7 @@ Meine Kontaktmöglichkeiten:
 </div>
 
 ## Ein großes Dankeschön geht auch an
-<a href="https://www.olli-graphics.de">Jan Oliver Schwaz</a> für die Bereitstellung der Telekom Datenbecher Grafiken. Ohne ihn wäre das neue Design nicht möglich gewesen.
+<a href="https://www.olli-graphics.de">Jan Oliver Schwaz</a> für die Bereitstellung der Telekom Datenbecher Grafiken und des Telekom Widget Icons. Ohne ihn wäre das neue Design nicht möglich gewesen.
 
 ## Zukünftige Funktionen:
 - Angepasstes Large Widget
