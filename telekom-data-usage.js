@@ -114,7 +114,9 @@ async function saveImages() {
 
 async function getImageFor(name) {
   let img_path = fm.joinPath(dir, name + ".png");
-  await fm.downloadFileFromiCloud(img_path);
+  if (parameters.includes("icloud")) {
+    await fm.downloadFileFromiCloud(img_path);
+  }
   img = await fm.readImage(img_path);
   return img;
 }
@@ -126,7 +128,9 @@ async function saveData(data) {
 }
 
 async function getFromFile() {
-  await fm.downloadFileFromiCloud(path);
+  if (parameters.includes("icloud")) {
+    await fm.downloadFileFromiCloud(path);
+  }
   data = await JSON.parse(fm.readString(path));
   console.log("Fetching data from file was successful");
   return data;
