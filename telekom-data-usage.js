@@ -94,6 +94,14 @@ async function getFromApi() {
       "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Mobile/15E148 Safari/604.1",
   };
   data = await request.loadJSON();
+
+  // On WiFi the API does not return usage data. Newer iOS versions no longer
+  // throw here, they return a redirect or a body without the expected fields.
+  // Validate the response so we never treat a non-Telekom response as data.
+  if (data == null || typeof data.usedVolume !== "number") {
+    throw new Error("Not on Telekom network");
+  }
+
   return data;
 }
 
@@ -365,10 +373,12 @@ await saveImages();
 try {
   data = await getFromApi();
   saveData(data);
-} catch {
+} catch (err) {
   wifi = true;
   console.log(
-    "Couldnt fetch data from API. Wifi still on? Trying to read from file."
+    "Couldnt fetch valid data from API (" +
+      err +
+      "). On WiFi? Trying to read from file."
   );
 }
 
