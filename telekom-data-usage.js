@@ -13,7 +13,11 @@ const TEXT_COLOR = Color.dynamic(new Color("000000"), new Color("#ffffff"));
 
 //########## END OF SETUP ##########
 
+// The Telekom/fraenk data portal no longer exposes a JSON API.
+// It now renders the usage values into the HTML of the status page.
+// We fetch that page and parse the values with a fuzzy parser below.
 const apiURL = "https://pass.telekom.de/api/service/generic/v1/status";
+const pageURL = "https://datapass.de/home";
 const imgURL =
   "https://raw.githubusercontent.com/marcjulianschwarz/telekom-data-usage-widget/main/symbols/";
 
@@ -86,22 +90,72 @@ function getDaysHours(data) {
   return days + "d " + Math.round(hours) + "h";
 }
 
+const GIGABYTE = 1024 * 1024 * 1024;
+const MEGABYTE = 1024 * 1024;
+
+// Fuzzy parser. Reads the status page HTML and extracts the usage values by
+// their visual patterns, not by CSS class names. Class names change between
+// brands and redesigns, the numbers and units do not. Returns the same
+// byte-based shape the old JSON API returned, so the rest of the widget stays
+// the same:
+//   { passName, usedVolume, initialVolume, usedPercentage, remainingSeconds }
+function parseUsageFromHtml(html) {
+  // Flatten to plain text for the number matching.
+  let text = html.replace(/<[^>]+>/g, " ");
+  text = text.replace(/&nbsp;?/gi, " ");
+  text = text.replace(/&amp;/gi, "&");
+  text = text.replace(/\s+/g, " ").trim();
+
+  // "remaining / total UNIT", e.g. "35,93 / 36 GB". This is the core fact.
+  let volume = text.match(
+    /([0-9]+(?:[.,][0-9]+)?)\s*\/\s*([0-9]+(?:[.,][0-9]+)?)\s*(GB|MB)/i
+  );
+  if (volume == null) {
+    throw new Error("No volume pattern found (on WiFi or page changed)");
+  }
+
+  let toNumber = (s) => parseFloat(s.replace(",", "."));
+  let unit = volume[3].toUpperCase() === "MB" ? MEGABYTE : GIGABYTE;
+  let remainingVolume = toNumber(volume[1]) * unit;
+  let initialVolume = toNumber(volume[2]) * unit;
+  let usedVolume = Math.max(initialVolume - remainingVolume, 0);
+  let usedPercentage =
+    initialVolume > 0 ? Math.round((usedVolume / initialVolume) * 100) : 0;
+
+  // Remaining validity as "<n> Tag(e) <n> Std. <n> Min." Any part may be absent.
+  let daysMatch = text.match(/([0-9]+)\s*Tag/i);
+  let hoursMatch = text.match(/([0-9]+)\s*Std/i);
+  let minsMatch = text.match(/([0-9]+)\s*Min/i);
+  let days = daysMatch ? parseInt(daysMatch[1], 10) : 0;
+  let hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
+  let mins = minsMatch ? parseInt(minsMatch[1], 10) : 0;
+  let remainingSeconds = days * 86400 + hours * 3600 + mins * 60;
+
+  // Tariff name, e.g. "Deine fraenk flat". Falls back to a generic label.
+  let nameMatch = text.match(/(Deine\s+[A-Za-zÄÖÜäöüß0-9 ]+?flat)/i);
+  let passName = nameMatch ? nameMatch[1].trim() : "Datenvolumen";
+
+  return {
+    passName,
+    usedVolume,
+    initialVolume,
+    usedPercentage,
+    remainingSeconds,
+  };
+}
+
 // Get all data and process
 async function getFromApi() {
-  let request = new Request(apiURL);
+  let request = new Request(pageURL);
   request.headers = {
     "User-Agent":
       "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Mobile/15E148 Safari/604.1",
   };
-  data = await request.loadJSON();
+  let html = await request.loadString();
 
-  // On WiFi the API does not return usage data. Newer iOS versions no longer
-  // throw here, they return a redirect or a body without the expected fields.
-  // Validate the response so we never treat a non-Telekom response as data.
-  if (data == null || typeof data.usedVolume !== "number") {
-    throw new Error("Not on Telekom network");
-  }
-
+  // On WiFi the portal shows a page without usage values. The parser throws in
+  // that case, so we fall back to the cached file instead of saving junk.
+  data = parseUsageFromHtml(html);
   return data;
 }
 
