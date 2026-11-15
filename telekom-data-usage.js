@@ -30,12 +30,9 @@ if (parameters != null) {
 
 let widgetSize = config.widgetFamily;
 
-let fm = FileManager.iCloud();
-if (parameters.includes("local")) {
-  fm = FileManager.local();
-} else if (parameters.includes("icloud")) {
-  fm = FileManager.iCloud();
-}
+// iCloud unless "local" is set
+const useICloud = !parameters.includes("local");
+let fm = useICloud ? FileManager.iCloud() : FileManager.local();
 
 let dir = fm.joinPath(fm.documentsDirectory(), "telekom-widget");
 let path = fm.joinPath(dir, "telekom-data.json");
@@ -398,7 +395,7 @@ async function saveImages() {
 
 async function getImageFor(name) {
   let img_path = fm.joinPath(dir, name + ".png");
-  if (parameters.includes("icloud")) {
+  if (useICloud) {
     await fm.downloadFileFromiCloud(img_path);
   }
   img = await fm.readImage(img_path);
@@ -412,7 +409,7 @@ async function saveData(data) {
 }
 
 async function getFromFile() {
-  if (parameters.includes("icloud")) {
+  if (useICloud) {
     await fm.downloadFileFromiCloud(path);
   }
   data = await JSON.parse(fm.readString(path));

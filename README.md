@@ -26,7 +26,7 @@
 ## Parameter
 Parameter können nach Schritt 5 angegeben werden.<br><br>
 - "**local**"   -> Daten werden lokal gespeichert
-- "**icloud**"  -> Daten werden über iCloud mit allen anderen Geräten synchronisiert
+- "**icloud**"  -> Daten werden über iCloud mit allen anderen Geräten synchronisiert (Standard, wenn "local" nicht gesetzt ist)
 - "**visual**"  -> kann beim kleinen Widget verwendet werden um den "Daten Becher" anzuzeigen.
 
 Es könenn auch mehrere Parameter nacheinander angegeben werden.
