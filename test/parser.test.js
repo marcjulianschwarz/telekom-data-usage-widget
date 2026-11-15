@@ -12,6 +12,8 @@
 // - datapass-congstar-de.html: saved on 2026-11-14 over the congstar network.
 //   congstar ignores ?lang=en, so there is no English page. Booking tokens and
 //   the pass ID are redacted.
+// - datapass-fraenk-de.html: saved on 2026-11-15 over the fraenk network.
+//   fraenk ignores ?lang=en too. Booking tokens and the pass IDs are redacted.
 
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
@@ -43,6 +45,7 @@ const fixture = (name) =>
 const DE = fixture("datapass-telekom-de.html");
 const EN = fixture("datapass-telekom-en.html");
 const CONGSTAR = fixture("datapass-congstar-de.html");
+const FRAENK = fixture("datapass-fraenk-de.html");
 
 // The fixtures say the volume ends at 1796079599000 (30.11.2026 23:59:59 CET)
 // and the German page showed "17 Tage 01 Std. 29 Min. 42 Sek." left.
@@ -110,6 +113,21 @@ test("congstar page: validity from the end date, no countdown", () => {
     remainingSeconds: 25 * 86400,
   });
   assert.deepEqual({ ...r.parsedFrom }, { volume: "markup", validity: "date", name: "markup" });
+});
+
+test("fraenk page: extra data card first, used-up base volume below", () => {
+  // The countdown script says the extra data ends at 1796832715000, and the
+  // page showed "23 Tage 23 Std. 04 Min. 50 Sek." left.
+  const remaining = 23 * 86400 + 23 * 3600 + 4 * 60 + 50;
+  const r = parseUsageFromHtml(FRAENK, 1796832715000 - remaining * 1000);
+  assertUsage(r, {
+    passName: "5 GB Extra-Daten",
+    initialVolume: 5 * GIGABYTE,
+    usedVolume: (5 - 3.49) * GIGABYTE,
+    usedPercentage: 30,
+    remainingSeconds: remaining,
+  });
+  assert.deepEqual({ ...r.parsedFrom }, { volume: "markup", validity: "script", name: "markup" });
 });
 
 test("offers below the pass card are not taken as the validity", () => {
