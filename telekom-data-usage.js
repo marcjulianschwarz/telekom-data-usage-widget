@@ -106,7 +106,7 @@ function validityText(data) {
 
 // #region parser
 // Everything between the region markers is plain JavaScript without Scriptable
-// APIs, so test/parser.test.js can load and test it in Node.
+// APIs, so the tests can load it in Node.
 
 const KILOBYTE = 1024;
 const MEGABYTE = 1024 * KILOBYTE;

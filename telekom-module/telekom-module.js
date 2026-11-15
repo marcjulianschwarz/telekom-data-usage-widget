@@ -13,8 +13,6 @@ if(!fm.fileExists(dir)){
   fm.createDirectory(dir)
 }
 
-let wifi = false
-
 let df = new DateFormatter();
 df.useShortDateStyle();
 
@@ -36,7 +34,7 @@ class Telekom{
 // that both copies are the same.
 // #region parser
 // Everything between the region markers is plain JavaScript without Scriptable
-// APIs, so test/parser.test.js can load and test it in Node.
+// APIs, so the tests can load it in Node.
 
 const KILOBYTE = 1024;
 const MEGABYTE = 1024 * KILOBYTE;
@@ -328,7 +326,6 @@ module.exports.getData = async function getData(){
     data = await fetchUsage()
     saveData(data)
   }catch(err){
-    wifi = err.kind === "offline"
     console.log("Couldnt fetch data from datapass.de (" + err + "). Will try to read from file.")
   }
 

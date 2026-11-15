@@ -13,7 +13,7 @@
 
 Die Daten liegen in folgender Form vor:
 
-`telekom.name` -> Name des Vertrags / "Ihr Datenvolumen", wenn kein Vertrag Name geliefert wird.<br>
+`telekom.name` -> Name des Vertrags / "Datenvolumen", wenn kein Vertrag Name geliefert wird.<br>
 `telekom.usedVolume` -> Verbrauchtes Datenvolumen in GB.<br>
 `telekom.initialVolume` -> Volles Datenvolumen des Vertrags.<br>
 `telekom.remainingVolume` -> Übriges Datenvolumen.<br>

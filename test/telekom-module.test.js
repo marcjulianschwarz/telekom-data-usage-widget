@@ -23,8 +23,11 @@ const savedData = {
   remainingSeconds: 3600,
 };
 
-const parserRegion = (src) =>
-  src.match(/\/\/ #region parser\n[\s\S]*?\/\/ #endregion parser\n/)[0];
+function parserRegion(src) {
+  const m = src.match(/\/\/ #region parser\n[\s\S]*?\/\/ #endregion parser\n/);
+  assert.ok(m, "parser region markers not found");
+  return m[0];
+}
 
 function createFakeFileManager(files) {
   const calls = [];
