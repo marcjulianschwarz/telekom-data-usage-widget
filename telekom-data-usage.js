@@ -30,8 +30,7 @@ if (parameters != null) {
 
 let widgetSize = config.widgetFamily;
 
-// iCloud is the default. Only the "local" parameter switches to local storage,
-// so any other parameter combination (e.g. just "visual") still uses iCloud.
+// iCloud unless "local" is set
 const useICloud = !parameters.includes("local");
 let fm = useICloud ? FileManager.iCloud() : FileManager.local();
 
