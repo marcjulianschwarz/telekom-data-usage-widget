@@ -45,6 +45,7 @@ async function saveData(data){
 }
 
 async function getFromFile(){
+  await fm.downloadFileFromiCloud(path);
   data = await JSON.parse(fm.readString(path));
   return data
 }
