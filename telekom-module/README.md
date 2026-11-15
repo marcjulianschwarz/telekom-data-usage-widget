@@ -1,7 +1,7 @@
 # Telekom Modul
 
 ### Funktionen:
-- bereits formatierte Daten von der Telekom API abrufen
+- bereits formatierte Daten von datapass.de abrufen
 - automatische Zwischenspeicherung der Daten (Zugriff auch ohne Verbindung zum mobilen Netz)
 - Synchronisierung über iCloud
 
@@ -18,7 +18,7 @@ Die Daten liegen in folgender Form vor:
 `telekom.initialVolume` -> Volles Datenvolumen des Vertrags.<br>
 `telekom.remainingVolume` -> Übriges Datenvolumen.<br>
 `telekom.usedPercentage` -> Verbrauchtes Datenvolumen in Prozent.<br>
-`telekom.validUntil` -> Datum, bis zu dem das aktuelle Datenvolumen gültig ist.<br>
+`telekom.validUntil` -> Datum, bis zu dem das aktuelle Datenvolumen gültig ist, oder `null`, wenn die Seite keins angibt.<br>
 
 Alle Daten außer "usedPercentage" (Int) sind String Objekte.
 

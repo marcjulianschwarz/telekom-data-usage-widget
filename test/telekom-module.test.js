@@ -1,6 +1,7 @@
 // Tests for telekom-module/telekom-module.js. Run with: node --test
 //
-// The module runs in a sandbox with fakes for the Scriptable globals.
+// The module runs in a sandbox with fakes for the Scriptable globals. The page
+// comes from the datapass.de fixtures of test/parser.test.js.
 
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
@@ -8,19 +9,22 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 
-const source = fs.readFileSync(
-  path.join(__dirname, "..", "telekom-module", "telekom-module.js"),
-  "utf8"
-);
+const read = (...parts) =>
+  fs.readFileSync(path.join(__dirname, "..", ...parts), "utf8");
+const source = read("telekom-module", "telekom-module.js");
+const fixture = (name) => read("test", "fixtures", name);
 const dataPath = "/icloud/telekom-widget/telekom-data.json";
 
-const apiData = {
+const savedData = {
   passName: "MagentaMobil",
   usedVolume: 1.5 * 1024 * 1024 * 1024,
   initialVolume: 10 * 1024 * 1024 * 1024,
   usedPercentage: 15,
   remainingSeconds: 3600,
 };
+
+const parserRegion = (src) =>
+  src.match(/\/\/ #region parser\n[\s\S]*?\/\/ #endregion parser\n/)[0];
 
 function createFakeFileManager(files) {
   const calls = [];
@@ -51,7 +55,7 @@ function createFakeFileManager(files) {
   };
 }
 
-function loadModule(fm, loadJSON) {
+function loadModule(fm, loadString) {
   const module = { exports: {} };
   const context = {
     module,
@@ -61,8 +65,8 @@ function loadModule(fm, loadJSON) {
       useShortDateStyle() {}
     },
     Request: class {
-      loadJSON() {
-        return loadJSON();
+      loadString() {
+        return loadString();
       }
     },
   };
@@ -70,8 +74,12 @@ function loadModule(fm, loadJSON) {
   return module.exports;
 }
 
-test("downloads the iCloud file before it reads it when the API fails", async () => {
-  const saved = JSON.stringify({ ...apiData, savedDate: Date.now() });
+test("parser region is the same as in the widget", () => {
+  assert.equal(parserRegion(source), parserRegion(read("telekom-data-usage.js")));
+});
+
+test("downloads the iCloud file before it reads it when the page can't be loaded", async () => {
+  const saved = JSON.stringify({ ...savedData, savedDate: Date.now() });
   const fm = createFakeFileManager(new Map([[dataPath, saved]]));
   const telekom = loadModule(fm, async () => {
     throw new Error("no connection");
@@ -87,9 +95,11 @@ test("downloads the iCloud file before it reads it when the API fails", async ()
   assert.equal(data.usedPercentage, 15);
 });
 
-test("saves the API data and reads it back", async () => {
+test("parses the page, saves it and reads it back", async () => {
   const fm = createFakeFileManager(new Map());
-  const telekom = loadModule(fm, async () => ({ ...apiData }));
+  const telekom = loadModule(fm, async () =>
+    fixture("datapass-telekom-de.html")
+  );
 
   const data = await telekom.getData();
 
@@ -98,10 +108,51 @@ test("saves the API data and reads it back", async () => {
     "download " + dataPath,
     "read " + dataPath,
   ]);
+  const saved = JSON.parse(fm.files.get(dataPath));
+  assert.equal(saved.usedPercentage, data.usedPercentage);
+  assert.match(data.initialVolume, / GB$/);
+  assert.equal(typeof data.validUntil.getTime(), "number");
+});
+
+test("keeps the saved data when the page is the WiFi page", async () => {
+  const saved = JSON.stringify({ ...savedData, savedDate: Date.now() });
+  const fm = createFakeFileManager(new Map([[dataPath, saved]]));
+  const telekom = loadModule(fm, async () => fixture("datapass-wifi-de.html"));
+
+  const data = await telekom.getData();
+
+  assert.deepEqual(fm.calls, ["download " + dataPath, "read " + dataPath]);
   assert.equal(data.remainingVolume, "8,5 GB");
 });
 
-test("skips the download when no file exists and the API fails", async () => {
+test("keeps the saved data when the page is not recognized", async () => {
+  const saved = JSON.stringify({ ...savedData, savedDate: Date.now() });
+  const fm = createFakeFileManager(new Map([[dataPath, saved]]));
+  const telekom = loadModule(fm, async () => "<html><body>Wartung</body></html>");
+
+  const data = await telekom.getData();
+
+  assert.deepEqual(fm.calls, ["download " + dataPath, "read " + dataPath]);
+  assert.equal(data.remainingVolume, "8,5 GB");
+});
+
+test("validUntil is null when the saved data has no validity", async () => {
+  const saved = JSON.stringify({
+    ...savedData,
+    remainingSeconds: null,
+    savedDate: Date.now(),
+  });
+  const fm = createFakeFileManager(new Map([[dataPath, saved]]));
+  const telekom = loadModule(fm, async () => {
+    throw new Error("no connection");
+  });
+
+  const data = await telekom.getData();
+
+  assert.equal(data.validUntil, null);
+});
+
+test("skips the download when no file exists and the page can't be loaded", async () => {
   const fm = createFakeFileManager(new Map());
   const telekom = loadModule(fm, async () => {
     throw new Error("no connection");
@@ -114,7 +165,7 @@ test("skips the download when no file exists and the API fails", async () => {
 });
 
 test("fails when the iCloud download fails", async () => {
-  const saved = JSON.stringify({ ...apiData, savedDate: Date.now() });
+  const saved = JSON.stringify({ ...savedData, savedDate: Date.now() });
   const fm = createFakeFileManager(new Map([[dataPath, saved]]));
   fm.downloadFileFromiCloud = async () => {
     throw new Error("iCloud unavailable");
