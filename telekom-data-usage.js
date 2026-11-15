@@ -297,8 +297,8 @@ function parseError(kind, message) {
   return err;
 }
 
-// Reads the datapass.de status page. Returns the same byte-based shape the old
-// JSON API returned, so caching and the widgets stay the same:
+// Reads the datapass.de status page. Returns the byte-based shape that caching
+// and the widgets read:
 //   { passName, usedVolume, initialVolume, usedPercentage, remainingSeconds,
 //     parsedFrom }
 // remainingSeconds is null when the page shows no validity. parsedFrom says
